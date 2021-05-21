@@ -29,7 +29,9 @@ paciente_registrar.addEventListener('click', (e) => {
         document.getElementById('paciente_estatura').value = ""
         document.getElementById('paciente_es_fumador').checked = false
         document.getElementById('paciente_annos_fumador').value = ""
-        document.getElementById('paciente_tiene_dieta').checked = false   
+        document.getElementById('paciente_tiene_dieta').checked = false  
+        console.log("Lista de pacientes") 
+        console.log(c.listaPacientes) 
     }
 
 })
@@ -51,23 +53,36 @@ consulta_registrar.addEventListener('click', (e) => {
         c.registrarConsulta(tipo, nombre_del_profesional)
         document.getElementById('consulta_tipo').value = ""
         document.getElementById('consulta_nombre_del_profesional').value = ""
+        console.log("Lista de Consultas:")
+        console.log(c.listaConsultas)
     }
 })
 
+// Atender pacientes
 let atender_paciente = document.getElementById('atender_paciente')
 atender_paciente.addEventListener('click', (e) => {
     actualizar_render_salas()
-    m.imprimir(`Paciente atendido.`)
     c.Atender_Paciente()
+    m.imprimir(`Paciente enviado a sala.`)
     actualizar_render_salas()
+    console.log("Sala pendientes:")
+    console.log(c.listaPendientes)
+    console.log("Sala espera:")
+    console.log(c.salaEspera)
+    console.log("Sala atencion:")
+    console.log(c.salaAtencion)
 })
 
+
+// Liberar consultas
 let liberar_consultas = document.getElementById('liberar_consultas')
 liberar_consultas.addEventListener('click', (e) => {
     actualizar_render_salas()
     m.imprimir(`Consultas liberadas.`)
     c.Liberar_Consultas()
     actualizar_render_salas()
+    console.log("Lista de consultas:")
+    console.log(c.listaConsultas)
 })
 
 

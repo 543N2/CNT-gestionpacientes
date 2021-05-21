@@ -42,16 +42,16 @@ class Clinica {
 
 
     listarDisponibilidadConsultas(paciente) {
+        console.log("estoy listando dispnibilidad de consutlas")
         let consultas = []
         paciente.tipoConsulta.forEach(tipoConsulta => {
             let coincidencias = this.listaConsultas.filter(cons => {
-                return tipoConsulta === cons.tipo && cons.estado === consulta.estado.desocupada
+                return tipoConsulta === consulta.tipo[cons.tipo] && cons.estado === consulta.estado.desocupada
             })
             consultas.push(...coincidencias)
         });
         consultas.sort((cA, cB) => cA.tipo - cB.tipo)
         consultas.reverse()
-        console.log(consultas)
         return (consultas)
     }
 
@@ -113,8 +113,11 @@ class Clinica {
             let salaEsperaVacia = this.salaEspera.length === 0
 
             if (salaEsperaVacia) {
+                console.log("espera vacia")
                 paciente = this.listaPendientes[0]
+                console.log(paciente)
                 consultas = this.listarDisponibilidadConsultas(paciente)
+                console.log(consultas)
                 let sinDisponibilidad = consultas.length === 0
                 if (sinDisponibilidad) {
                     c.moverPacienteDePendienteASalaEspera(paciente)
