@@ -30,9 +30,8 @@ class Clinica {
     registrarConsulta(tipo, profesional) {
         this.consecutivoConsultas++
         let consultaNueva = new Consulta(this.consecutivoConsultas, tipo, profesional)
-        console.log(consultaNueva.tipo === consulta.tipo.urgencias)
+        // console.log(consultaNueva.tipo === consulta.tipo.urgencias)
         if (consultaNueva.tipo === consulta.tipo.urgencias) {
-            console.log("es urgencia")
             this.listaConsultas.unshift(consultaNueva)
         }
         else {
@@ -42,16 +41,27 @@ class Clinica {
 
 
     listarDisponibilidadConsultas(paciente) {
-        console.log("estoy listando dispnibilidad de consutlas")
         let consultas = []
         paciente.tipoConsulta.forEach(tipoConsulta => {
+            // console.log(c.listaConsultas.forEach(c=>console.log(c.tipo)))
+            // console.log(c.listaConsultas.forEach(c=>console.log(c)))
+            // let coincidencias = this.listaConsultas.forEach(cons => {
+            //     console.log("Puede tomar consulta de:"+ tipoConsulta)
+            //     console.log("Consulta disponibles en clinica:")
+            //     console.log('-> '+cons.tipo)
+            //     console.log('coincide?: ' + String(tipoConsulta === consulta.tipo[cons.tipo]))
+            //     console.log('------')
+               
+            // })
             let coincidencias = this.listaConsultas.filter(cons => {
                 return tipoConsulta === consulta.tipo[cons.tipo] && cons.estado === consulta.estado.desocupada
             })
             consultas.push(...coincidencias)
         });
-        consultas.sort((cA, cB) => cA.tipo - cB.tipo)
-        consultas.reverse()
+        // consultas.sort((cA, cB) => cA.tipo - cB.tipo)
+        // consultas.reverse()
+        console.log("listado disponibilidad consultas para el paciente")
+        console.log(consultas)
         return (consultas)
     }
 
@@ -114,6 +124,7 @@ class Clinica {
 
             if (salaEsperaVacia) {
                 console.log("espera vacia")
+                m.imprimir("espera vacia")
                 paciente = this.listaPendientes[0]
                 console.log(paciente)
                 consultas = this.listarDisponibilidadConsultas(paciente)
@@ -121,9 +132,11 @@ class Clinica {
                 let sinDisponibilidad = consultas.length === 0
                 if (sinDisponibilidad) {
                     c.moverPacienteDePendienteASalaEspera(paciente)
+                    console.log(`Paciente enviado a sala de espera.`)
                 }
                 else {
                     c.moverPacienteDePendienteASalaAtencion(paciente, consultas[0])
+                    console.log(`Paciente enviado a sala de atencion.`)
                 }
             }
             else if (!salaEsperaVacia) {
@@ -131,6 +144,7 @@ class Clinica {
                 consultas = this.listarDisponibilidadConsultas(paciente)
                 if (consultas.length !== 0) {
                     this.moverPacienteDeSalaEsperaASalaAtencion(paciente, consultas[0])
+                    console.log(`Paciente enviado a sala de atención.`)
                 }
                 else {
                     m.imprimir("Todas las consultas se encuentran ocupadas. Favor espere a que se liberen.")
@@ -140,7 +154,7 @@ class Clinica {
         }
         catch (e) {
             console.log("No hay más pacientes por atender. ", e)
-            m.imprimir("No hay más pacientes por atender.")
+            m.imprimir("No hay pacientes por atender.")
             actualizar_render_salas()
         }
     }

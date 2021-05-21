@@ -63,14 +63,14 @@ let atender_paciente = document.getElementById('atender_paciente')
 atender_paciente.addEventListener('click', (e) => {
     actualizar_render_salas()
     c.Atender_Paciente()
-    m.imprimir(`Paciente enviado a sala.`)
+    // m.imprimir("Paciente enviado a sala.")
     actualizar_render_salas()
-    console.log("Sala pendientes:")
-    console.log(c.listaPendientes)
-    console.log("Sala espera:")
-    console.log(c.salaEspera)
-    console.log("Sala atencion:")
-    console.log(c.salaAtencion)
+    // console.log("Sala pendientes:")
+    // console.log(c.listaPendientes)
+    // console.log("Sala espera:")
+    // console.log(c.salaEspera)
+    // console.log("Sala atencion:")
+    // console.log(c.salaAtencion)
 })
 
 
@@ -81,8 +81,8 @@ liberar_consultas.addEventListener('click', (e) => {
     m.imprimir(`Consultas liberadas.`)
     c.Liberar_Consultas()
     actualizar_render_salas()
-    console.log("Lista de consultas:")
-    console.log(c.listaConsultas)
+    // console.log("Lista de consultas:")
+    // console.log(c.listaConsultas)
 })
 
 

@@ -1,13 +1,13 @@
 const consulta = {
     tipo: {
-      pediatria: "Pediatría",
-      urgencias: "Urgencias",
-      mi: "Medicina Integral",
+      pediatria: "pediatria",
+      urgencias: "urgencias",
+      mi: "mi",
     },
   
     estado: {
-      ocupada: "Ocupada",
-      desocupada: "Desocupada",
+      ocupada: "ocupada",
+      desocupada: "desocupada",
       espera: "En espera de atención al paciente",
     }
   
