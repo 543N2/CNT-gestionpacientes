@@ -54,7 +54,7 @@ class Clinica {
             //     console.log('-> '+cons.tipo)
             //     console.log('coincide?: ' + String(tipoConsulta === consulta.tipo[cons.tipo]))
             //     console.log('------')
-               
+
             // })
             let coincidencias = this.listaConsultas.filter(cons => {
                 return tipoConsulta === consulta.tipo[cons.tipo] && cons.estado === consulta.estado.desocupada
@@ -112,7 +112,13 @@ class Clinica {
 
 
     Listar_Pacientes_Mayor_Riesgo(historiaClinica) {
-        return this.listaPacientes.filter(p => p.riesgo > this.listaPacientes[historiaClinica].riesgo)
+        let pacientes_mayor_riesgo = this.listaPacientes.filter(p => p.riesgo > this.listaPacientes[historiaClinica].riesgo)
+        if (pacientes_mayor_riesgo.length !== 0) {
+            return pacientes_mayor_riesgo
+        }
+        else {
+            return [{ nombre: "N/A" }]
+        }
     }
 
 
@@ -192,12 +198,13 @@ class Clinica {
         let consultas
         let atendidos = this.listaConsultas.map(c => c.pacientesAtendidos.length)
         let maximo = Math.max(...atendidos)
-        if (maximo !== 0) {
+        if (maximo !== 0 && this.listaPacientes.length > 0 ) {
             consultas = this.listaConsultas.filter(c => c.pacientesAtendidos.length === maximo)
         }
         else {
             consultas = [{ tipo: "N/A", profesional: "N/A" }]
         }
+        console.log(consultas)
         return consultas
     }
 

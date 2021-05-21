@@ -85,12 +85,19 @@ liberar_consultas.addEventListener('click', (e) => {
 let pacientes_de_mayor_riesgo = document.getElementById('pacientes_de_mayor_riesgo')
 pacientes_de_mayor_riesgo.addEventListener('click', (e) => {
     let mensaje = []
-    let historia_clinica = parseInt(document.getElementById('historia_clinica').value)
-    let nombre_paciente = c.listaPacientes.find(p => p.historiaClinica === historia_clinica).nombre
-    let intro = `Los pacientes con mayor riesgo que ${nombre_paciente} son: `
-    let lista = c.Listar_Pacientes_Mayor_Riesgo(historia_clinica)
-    lista.forEach(p => mensaje.push(p.nombre))
-    m.imprimir(intro + mensaje)
+    let historia_clinica = (document.getElementById('historia_clinica').value)
+    let historiaValida = historia_clinica >= 0 && historia_clinica !== "" && c.listaPacientes.length > 0
+    if (historiaValida) {
+        let nombre_paciente = c.listaPacientes.find(p => p.historiaClinica === historia_clinica).nombre
+        let intro = `Los pacientes con mayor riesgo que ${nombre_paciente} son: `
+        let lista = c.Listar_Pacientes_Mayor_Riesgo(historia_clinica)
+        lista.forEach(p => mensaje.push(p.nombre))
+        m.imprimir(intro + mensaje)
+    }
+    else {
+        m.imprimir("El número de historia clinica no puede estar vacío y debe haber pacientes registrados.")
+    }
+    
 })
 
 let pacientes_fumadores_urgentes = document.getElementById('pacientes_fumadores_urgentes')
