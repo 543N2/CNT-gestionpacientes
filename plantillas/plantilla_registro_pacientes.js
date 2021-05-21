@@ -4,7 +4,7 @@ const plantilla_registro_pacientes = () => {
     <p class="h6 my-2 text-center">Registro Pacientes</p>
         <div class="container-fluid p-2 mb-3 border bg-lightblue rounded-2 text-light">
           <input id="paciente_nombre" class="form-control my-1" type="text" placeholder="Nombre">
-          <input id="paciente_edad" class="form-control my-1" type="number" placeholder="Edad">
+          <input id="paciente_edad" class="form-control my-1" type="number" placeholder="Edad (años)">
           <input id="paciente_peso" class="form-control my-1" type="number" placeholder="Peso (Kg)">
           <input id="paciente_estatura" class="form-control my-1" type="number" placeholder="Estatura (cm)">
           <div class="form-check m-1">
