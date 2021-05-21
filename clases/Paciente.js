@@ -7,7 +7,7 @@ class Paciente {
     this.establecerTipoPaciente(edad)
     this.establecerPrioridad(this.tipo, edad, peso, estatura, esFumador, annosFuma, tieneDieta, nombre)
     this.establecerRiesgo(this.tipo, this.prioridad, edad)
-    this.establecerTipoConsulta(this.tipo,this.prioridad)
+    this.establecerTipoConsulta(this.tipo, this.prioridad)
   }
 
 
@@ -36,7 +36,7 @@ class Paciente {
     }
     else {
       console.log("Error. Edad inválida.")
-      this.tipo = null
+      this.tipo = ""
     }
     // console.log(` -Tipo: ${this.tipo}.`)
   }
@@ -109,7 +109,7 @@ class Paciente {
 
 
   establecerPrioridadJoven(esFumador, annosFuma) {
-    let criterio1 = esFumador && annosFuma > 0
+    let criterio1 = esFumador || annosFuma > 0
     let criterio2 = !esFumador || annosFuma === 0
     if (criterio1) {
       this.esFumador = true
@@ -122,8 +122,8 @@ class Paciente {
       return 2
     }
     else {
-      console.log("Error. Favor verificar si es esFumador y años de esFumador.")
-      return null
+      console.log("Lleva menos de un año fumando.")
+      return 1 / 4 + 2
     }
   }
 
@@ -157,15 +157,15 @@ class Paciente {
     let criterioPediatria = tipo === paciente.tipo.ninno && prioridad <= 4
     let criterioMi = tipo === paciente.tipo.joven || tipo === paciente.tipo.anciano
     let criterioUrgencias = prioridad > 4
-    if(criterioPediatria){
+    if (criterioPediatria) {
       this.tipoConsulta.push(consulta.tipo.pediatria)
     }
-    if(criterioMi){
+    if (criterioMi) {
       this.tipoConsulta.push(consulta.tipo.mi)
     }
-    if(criterioUrgencias){
+    if (criterioUrgencias) {
       this.tipoConsulta.push(consulta.tipo.urgencias)
     }
     // console.log(` -Tipos de consulta: ${this.tipoConsulta}.`)
   }
-} 
+}

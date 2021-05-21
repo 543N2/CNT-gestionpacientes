@@ -30,7 +30,14 @@ class Clinica {
     registrarConsulta(tipo, profesional) {
         this.consecutivoConsultas++
         let consultaNueva = new Consulta(this.consecutivoConsultas, tipo, profesional)
-        this.listaConsultas.push(consultaNueva)
+        console.log(consultaNueva.tipo === consulta.tipo.urgencias)
+        if (consultaNueva.tipo === consulta.tipo.urgencias) {
+            console.log("es urgencia")
+            this.listaConsultas.unshift(consultaNueva)
+        }
+        else {
+            this.listaConsultas.push(consultaNueva)
+        }
     }
 
 
@@ -44,6 +51,7 @@ class Clinica {
         });
         consultas.sort((cA, cB) => cA.tipo - cB.tipo)
         consultas.reverse()
+        console.log(consultas)
         return (consultas)
     }
 
@@ -75,10 +83,10 @@ class Clinica {
         this.ordenarPacientesPorPrioridad()
         let indicePaciente = this.salaEspera.indexOf(paciente)
         this.salaEspera.splice(indicePaciente, 1)
-        
+
         let indiceConsulta = this.listaConsultas.indexOf(consulta)
         this.listaConsultas[indiceConsulta].ocupar(paciente)
-        
+
         this.salaAtencion.push({
             paciente: paciente,
             consulta: consulta,
@@ -118,7 +126,7 @@ class Clinica {
             else if (!salaEsperaVacia) {
                 paciente = this.salaEspera[0]
                 consultas = this.listarDisponibilidadConsultas(paciente)
-                if(consultas.length!==0){
+                if (consultas.length !== 0) {
                     this.moverPacienteDeSalaEsperaASalaAtencion(paciente, consultas[0])
                 }
                 else {

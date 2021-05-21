@@ -4,16 +4,33 @@ let m = new Monitor()
 // Registro de Pacientes
 let paciente_registrar = document.getElementById('paciente_registrar')
 paciente_registrar.addEventListener('click', (e) => {
+
     let nombre = document.getElementById('paciente_nombre').value
-    let edad = parseInt(document.getElementById('paciente_edad').value)
-    let peso = parseInt(document.getElementById('paciente_peso').value)
+    let edad = document.getElementById('paciente_edad').value
+    let peso = document.getElementById('paciente_peso').value
     let estatura = document.getElementById('paciente_estatura').value
     let es_fumador = document.getElementById('paciente_es_fumador').checked
-    let annos_fumador = parseInt(document.getElementById('paciente_annos_fumador').value)
+    let annos_fumador = document.getElementById('paciente_annos_fumador').value
     let tiene_dieta = document.getElementById('paciente_tiene_dieta').checked
-    c.registrarPaciente(nombre, edad, peso, estatura, es_fumador, annos_fumador, tiene_dieta)
-    actualizar_render_salas()
-    m.imprimir(`Paciente ${nombre} registrado.`)
+
+    let dummy = new Paciente(0, nombre, edad, peso, estatura, es_fumador, annos_fumador, tiene_dieta)
+    let datosVacios = dummy.nombre === "" || dummy.edad === ""
+    let datosInvalidos = (dummy.tipo === paciente.tipo.ninno && peso === "" && estatura === "")
+    if (datosVacios || datosInvalidos) {
+        m.imprimir("Se debe suministrar el nombre y la edad. Para niños se debe suministrar edad y estatura.")
+    }
+    else {
+        c.registrarPaciente(nombre, parseInt(edad), parseInt(peso), estatura, es_fumador, annos_fumador , tiene_dieta)
+        actualizar_render_salas()
+        m.imprimir(`Paciente ${dummy.nombre} registrado.`)
+        document.getElementById('paciente_nombre').value = ""
+        document.getElementById('paciente_edad').value = ""
+        document.getElementById('paciente_peso').value = ""
+        document.getElementById('paciente_estatura').value = ""
+        document.getElementById('paciente_es_fumador').checked = false
+        document.getElementById('paciente_annos_fumador').value = ""
+        document.getElementById('paciente_tiene_dieta').checked = false   
+    }
 
 })
 
@@ -22,20 +39,31 @@ let consulta_registrar = document.getElementById('consulta_registrar')
 consulta_registrar.addEventListener('click', (e) => {
     let tipo = document.getElementById('consulta_tipo').value
     let nombre_del_profesional = document.getElementById('consulta_nombre_del_profesional').value
-    c.registrarConsulta(tipo, nombre_del_profesional)
-    m.imprimir(`Registrada consulta de ${consulta.tipo[tipo]}, profesional: ${nombre_del_profesional}.`)
+    let entradaInvalida = tipo === "" ||
+        tipo === undefined ||
+        nombre_del_profesional === "" ||
+        nombre_del_profesional === undefined
+    if (entradaInvalida) {
+        m.imprimir("No puede haber campos vacios en el registro de consulta.")
+    }
+    else {
+        m.imprimir(`Registrada consulta de ${consulta.tipo[tipo]}, profesional: ${nombre_del_profesional}.`)
+        c.registrarConsulta(tipo, nombre_del_profesional)
+        document.getElementById('consulta_tipo').value = ""
+        document.getElementById('consulta_nombre_del_profesional').value = ""
+    }
 })
 
-let atender_paciente = document.getElementById('atender_paciente') 
-atender_paciente.addEventListener('click', (e)=>{
+let atender_paciente = document.getElementById('atender_paciente')
+atender_paciente.addEventListener('click', (e) => {
     actualizar_render_salas()
     m.imprimir(`Paciente atendido.`)
     c.Atender_Paciente()
     actualizar_render_salas()
 })
 
-let liberar_consultas = document.getElementById('liberar_consultas') 
-liberar_consultas.addEventListener('click', (e)=>{
+let liberar_consultas = document.getElementById('liberar_consultas')
+liberar_consultas.addEventListener('click', (e) => {
     actualizar_render_salas()
     m.imprimir(`Consultas liberadas.`)
     c.Liberar_Consultas()
@@ -102,12 +130,12 @@ function load_data() {
 
 
 let datos_de_ejemplo = document.getElementById('datos_de_ejemplo')
-datos_de_ejemplo.addEventListener('click', (e)=>{
-        load_data()
-        actualizar_render_salas()
-        datos_de_ejemplo.style.display="none"
-        console.log("Cargados datos de ejemplo.")
-        m.imprimir("Cargados datos de ejemplo.")
+datos_de_ejemplo.addEventListener('click', (e) => {
+    load_data()
+    actualizar_render_salas()
+    datos_de_ejemplo.style.display = "none"
+    console.log("Cargados datos de ejemplo.")
+    m.imprimir("Cargados datos de ejemplo.")
 })
 
 actualizar_render_salas()
