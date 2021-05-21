@@ -17,12 +17,12 @@ paciente_registrar.addEventListener('click', (e) => {
     let datosVacios = dummy.nombre === "" || dummy.edad === ""
     let datosInvalidos = (dummy.tipo === paciente.tipo.ninno && peso === "" && estatura === "")
     if (datosVacios || datosInvalidos) {
+        console.log("Se debe suministrar el nombre y la edad. Para niños se debe suministrar edad y estatura.")
         m.imprimir("Se debe suministrar el nombre y la edad. Para niños se debe suministrar edad y estatura.")
     }
     else {
         c.registrarPaciente(nombre, parseInt(edad), parseInt(peso), estatura, es_fumador, annos_fumador , tiene_dieta)
         actualizar_render_salas()
-        m.imprimir(`Paciente ${dummy.nombre} registrado.`)
         document.getElementById('paciente_nombre').value = ""
         document.getElementById('paciente_edad').value = ""
         document.getElementById('paciente_peso').value = ""
@@ -30,6 +30,7 @@ paciente_registrar.addEventListener('click', (e) => {
         document.getElementById('paciente_es_fumador').checked = false
         document.getElementById('paciente_annos_fumador').value = ""
         document.getElementById('paciente_tiene_dieta').checked = false  
+        
         console.log("Lista de pacientes") 
         console.log(c.listaPacientes) 
     }
@@ -46,13 +47,14 @@ consulta_registrar.addEventListener('click', (e) => {
         nombre_del_profesional === "" ||
         nombre_del_profesional === undefined
     if (entradaInvalida) {
-        m.imprimir("No puede haber campos vacios en el registro de consulta.")
+        m.imprimir("No debe haber campos vacios en el registro de consulta.")
+        console.log("No debe haber campos vacios en el registro de consulta.")
     }
     else {
-        m.imprimir(`Registrada consulta de ${consulta.tipo[tipo]}, profesional: ${nombre_del_profesional}.`)
-        c.registrarConsulta(tipo, nombre_del_profesional)
+        c.registrarConsulta(tipo,nombre_del_profesional)
         document.getElementById('consulta_tipo').value = ""
         document.getElementById('consulta_nombre_del_profesional').value = ""
+        
         console.log("Lista de Consultas:")
         console.log(c.listaConsultas)
     }
@@ -63,14 +65,7 @@ let atender_paciente = document.getElementById('atender_paciente')
 atender_paciente.addEventListener('click', (e) => {
     actualizar_render_salas()
     c.Atender_Paciente()
-    // m.imprimir("Paciente enviado a sala.")
     actualizar_render_salas()
-    // console.log("Sala pendientes:")
-    // console.log(c.listaPendientes)
-    // console.log("Sala espera:")
-    // console.log(c.salaEspera)
-    // console.log("Sala atencion:")
-    // console.log(c.salaAtencion)
 })
 
 
@@ -78,11 +73,11 @@ atender_paciente.addEventListener('click', (e) => {
 let liberar_consultas = document.getElementById('liberar_consultas')
 liberar_consultas.addEventListener('click', (e) => {
     actualizar_render_salas()
-    m.imprimir(`Consultas liberadas.`)
     c.Liberar_Consultas()
     actualizar_render_salas()
-    // console.log("Lista de consultas:")
-    // console.log(c.listaConsultas)
+    
+    console.log("Lista de consultas:")
+    console.log(c.listaConsultas)
 })
 
 

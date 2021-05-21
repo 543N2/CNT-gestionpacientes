@@ -6,7 +6,7 @@ const plantilla_registro_consultas = () => {
           <select id="consulta_tipo" class="form-select m-1" name="">
             <option value="">Tipo</option>
             <option value="urgencias">Urgencias</option>
-            <option value="mi">Medicina Integral</option>
+            <option value="mi">(MI) Medicina Integral</option>
             <option value="pediatria">Pediatria</option>
           </select>
           <input id="consulta_nombre_del_profesional" class="form-control m-1" type="text" name="" placeholder="Nombre del profesional">

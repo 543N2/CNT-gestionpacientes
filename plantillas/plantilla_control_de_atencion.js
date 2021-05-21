@@ -5,7 +5,7 @@ const plantilla_control_de_atencion = () => {
         <p class="h6 my-3 text-center">Monitor</p>
         <div class="container-fluid p-2 mb-3 border bg-danger rounded-2 text-light">
           <!-- <p class="h6 my-2 text-center"> -->
-          <div id="monitor" class="bg-light text-dark p-2"></div>
+          <textarea id="monitor" class="bg-light text-dark p-0 form-control" rows="3"></textarea>
         </div>
         
         <div class="row justify-content-evenly">
