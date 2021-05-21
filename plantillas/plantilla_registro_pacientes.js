@@ -5,8 +5,8 @@ const plantilla_registro_pacientes = () => {
         <div class="container-fluid p-2 mb-3 border bg-lightblue rounded-2 text-light">
           <input id="paciente_nombre" class="form-control my-1" type="text" placeholder="Nombre">
           <input id="paciente_edad" class="form-control my-1" type="number" placeholder="Edad">
-          <input id="paciente_peso" class="form-control my-1" type="number" placeholder="Peso">
-          <input id="paciente_estatura" class="form-control my-1" type="number" placeholder="Estatura">
+          <input id="paciente_peso" class="form-control my-1" type="number" placeholder="Peso (Kg)">
+          <input id="paciente_estatura" class="form-control my-1" type="number" placeholder="Estatura (cm)">
           <div class="form-check m-1">
             <input id="paciente_es_fumador" class="form-check-input" type="checkbox" value="true">
             <label class="form-check-label" for="flexCheckDefault">
