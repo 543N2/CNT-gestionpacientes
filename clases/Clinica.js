@@ -19,7 +19,6 @@ class Clinica {
 
 
     registrarPaciente(nombre, edad, peso, estatura, esFumador, annosFuma, tieneDieta) {
-        // console.log(`Paciente: ${nombre}.`)
         this.consecutivoHistorias++
         let pacienteNuevo = new Paciente(this.consecutivoHistorias, nombre, edad, peso, estatura, esFumador, annosFuma, tieneDieta)
         this.listaPacientes.push(pacienteNuevo)
@@ -49,6 +48,7 @@ class Clinica {
     }
 
     moverPacienteDePendienteASalaEspera(paciente) {
+        this.ordenarPacientesPorPrioridad()
         let indicePaciente = this.listaPendientes.indexOf(paciente)
         this.listaPendientes.splice(indicePaciente, 1)
         this.salaEspera.push(paciente)
@@ -56,6 +56,7 @@ class Clinica {
     }
 
     moverPacienteDePendienteASalaAtencion(paciente, consulta) {
+        this.ordenarPacientesPorPrioridad()
         let indicePaciente = this.listaPendientes.indexOf(paciente)
         this.listaPendientes.splice(indicePaciente, 1)
 
@@ -71,18 +72,18 @@ class Clinica {
     }
 
     moverPacienteDeSalaEsperaASalaAtencion(paciente, consulta) {
+        this.ordenarPacientesPorPrioridad()
         let indicePaciente = this.salaEspera.indexOf(paciente)
         this.salaEspera.splice(indicePaciente, 1)
-
+        
         let indiceConsulta = this.listaConsultas.indexOf(consulta)
         this.listaConsultas[indiceConsulta].ocupar(paciente)
-
+        
         this.salaAtencion.push({
             paciente: paciente,
             consulta: consulta,
         })
         this.ordenarPacientesPorPrioridad()
-
     }
 
     ordenarPacientesPorPrioridad() {
@@ -97,49 +98,80 @@ class Clinica {
 
 
     Atender_Paciente() {
-        let paciente
-        let consultas
-        let salaEsperaVacia = this.salaEspera.length === 0
+        try {
 
-        if (salaEsperaVacia) {
-            paciente = this.listaPendientes[0]
-            consultas = this.listarDisponibilidadConsultas(paciente)
-            let sinDisponibilidad = consultas.length === 0
-            if (sinDisponibilidad) {
-                c.moverPacienteDePendienteASalaEspera(paciente)
+            let paciente
+            let consultas
+            let salaEsperaVacia = this.salaEspera.length === 0
+
+            if (salaEsperaVacia) {
+                paciente = this.listaPendientes[0]
+                consultas = this.listarDisponibilidadConsultas(paciente)
+                let sinDisponibilidad = consultas.length === 0
+                if (sinDisponibilidad) {
+                    c.moverPacienteDePendienteASalaEspera(paciente)
+                }
+                else {
+                    c.moverPacienteDePendienteASalaAtencion(paciente, consultas[0])
+                }
             }
-            else {
-                c.moverPacienteDePendienteASalaAtencion(paciente, consultas[0])
+            else if (!salaEsperaVacia) {
+                paciente = this.salaEspera[0]
+                consultas = this.listarDisponibilidadConsultas(paciente)
+                if(consultas.length!==0){
+                    this.moverPacienteDeSalaEsperaASalaAtencion(paciente, consultas[0])
+                }
+                else {
+                    m.imprimir("Todas las consultas se encuentran ocupadas. Favor espere a que se liberen.")
+                    console.log("Todas las consultas estan ocupadas.")
+                }
             }
         }
-        else if (!salaEsperaVacia) {
-            paciente = this.salaEspera[0]
-            consultas = this.listarDisponibilidadConsultas(paciente)
-            this.moverPacienteDeSalaEsperaASalaAtencion(paciente, consultas[0])
+        catch (e) {
+            console.log("No hay más pacientes por atender. ", e)
+            m.imprimir("No hay más pacientes por atender.")
+            actualizar_render_salas()
         }
     }
 
 
     Liberar_Consultas() {
-        this.listaConsultas.forEach(c => {
-            if (c.estado === consulta.estado.ocupada) {
-                c.desocupar()
-                console.log(this.salaAtencion)
-            }
-        })
-        this.salaAtencion = []
+
+        try {
+            this.listaConsultas.forEach(c => {
+                if (c.estado === consulta.estado.ocupada) {
+                    c.desocupar()
+                    console.log(this.salaAtencion)
+                }
+            })
+            this.salaAtencion = []
+        }
+        catch (e) {
+            actualizar_render_salas()
+            console.log("Ocurrio un error inesperado.", e)
+        }
     }
 
 
     Listar_Pacientes_Fumadores_Urgentes() {
-        return this.listaPendientes.filter(p => p.esFumador === true)
+        let lista = this.listaPendientes.filter(p => p.esFumador === true)
+        if (lista.length !== 0) {
+            return lista
+        }
+        return [{ nombre: "N/A" }]
     }
 
 
     Consulta_mas_Pacientes_Atendidos() {
+        let consultas
         let atendidos = this.listaConsultas.map(c => c.pacientesAtendidos.length)
         let maximo = Math.max(...atendidos)
-        let consultas = this.listaConsultas.filter(c => c.pacientesAtendidos.length === maximo)
+        if (maximo !== 0) {
+            consultas = this.listaConsultas.filter(c => c.pacientesAtendidos.length === maximo)
+        }
+        else {
+            consultas = [{ tipo: "N/A", profesional: "N/A" }]
+        }
         return consultas
     }
 
@@ -148,12 +180,17 @@ class Clinica {
         let edades = this.salaEspera.map(p => p.edad)
         let mayor = Math.max(...edades)
         let ancianos = this.salaEspera.filter(p => p.edad === mayor)
-        return ancianos
+        if (ancianos.length !== 0) {
+            return ancianos
+        }
+        else {
+            return [{ nombre: "N/A" }]
+        }
     }
 
 
     Optimizar_Atencion() {
-        
+
     }
 
 }

@@ -24,139 +24,52 @@
     .text-sm {
       font-size: small;
     }
+
+    #monitor {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: small;
+    }
   </style>
   <title>Clínica - CNT Sistemas</title>
 </head>
 
 <body>
 
-  <div class="navbar navbar-dark bg-dark text-light justify-content-center">
-    <p class="h4">
-      Sistema de Gestión de Pacientes
-    </p>
-  </div>
-
   <div class="container-fluid">
 
     <div class="row">
 
+      <!-- Sección de header -->
+      <header id="vista_header" class="p-0"></header>
+
       <!-- Sección de formularios de registro de pacientes y consultas -->
       <div class="col-2 p-1">
 
-        <p class="h6 my-2 text-center">Registro Pacientes</p>
-        <div class="container-fluid p-2 mb-3 border bg-lightblue rounded-2 text-light">
-          <input id="paciente_nombre" class="form-control my-1" type="text" placeholder="Nombre">
-          <input id="paciente_edad" class="form-control my-1" type="number" placeholder="Edad">
-          <input id="paciente_peso" class="form-control my-1" type="number" placeholder="Peso">
-          <input id="paciente_estatura" class="form-control my-1" type="number" placeholder="Estatura">
-          <div class="form-check m-1">
-            <input id="paciente_es_fumador" class="form-check-input" type="checkbox" value="true">
-            <label class="form-check-label" for="flexCheckDefault">
-              ¿Es fumador?
-            </label>
-            <input id="paciente_annos_fumador" class="form-control m-1" type="number" placeholder="Años de fumador">
-          </div>
-          <div class="form-check m-1">
-            <input id="paciente_tiene_dieta" class="form-check-input" type="checkbox" value="">
-            <label class="form-check-label" for="flexCheckDefault">
-              ¿Tiene dieta?
-            </label>
-          </div>
-          <button id="paciente_registrar" class="btn btn-dark m-2" type="button">Registrar paciente</button>
-        </div>
+        <!-- Formulario de registro de pacientes -->
+        <div id="vista_registro_pacientes"></div>
 
-        <p class="h6 my-2 text-center">Registro consultas</p>
-        <div class="container-fluid p-2 border bg-lightblue rounded-2 text-light" id="formulario_registro_consultas">
-          <select id="consulta_tipo" class="form-select m-1" name="">
-            <option value="">Tipo</option>
-            <option value="urgencias">Urgencias</option>
-            <option value="mi">Medicina Integral</option>
-            <option value="pediatria">Pediatria</option>
-          </select>
-          <input id="consulta_nombre_del_profesional" class="form-control m-1" type="text" name="" placeholder="Nombre del profesional">
-          <button id="consulta_registrar" class="btn btn-dark m-2" type="button">Registrar consulta</button>
-        </div>
+        <!-- Formulario de registro de consultas -->
+        <div id="vista_registro_consultas"></div>
 
       </div>
 
-      <!-- Seccion de controles y salas-->
+      <!-- Seccion de control de atención y salas-->
       <div class="col-8">
 
         <!-- Seccion de control de atención -->
-        <div class="row my-3 justify-content-evenly">
-          <button class="btn btn-danger col-5 " type="button">Atender paciente</button>
-          <button class="btn btn-danger col-5 " type="button">Liberar consultas</button>
-        </div>
+        <div id="vista_control_de_atencion"></div>
 
+        <!-- Sección de salas -->
         <div class="row my-3 justify-content-evenly">
 
           <!-- Sala de pacientes pendientes -->
-          <div class="col text-center">
-            <p class="h6 my-2 text-center">Pacientes pendientes</p>
-            <div
-              class="col text-center my-3 p-1 border border-2 rounded-2 bg-light d-flex flex-wrap justify-content-evenly">
-
-              <!-- Paciente -->
-              <div class="card lh-sm text-sm border-secondary m-1" style="width: 7rem;">
-                <div class="card-header p-2 bg-secondary text-light fw-bold">
-                  Juan Fernando
-                </div>
-                <ul class="list-group list-group-flush fw-light">
-                  <li class="list-group-item p-1">Prioridad: 6</li>
-                  <li class="list-group-item p-1">Riesgo: 5.3</li>
-                </ul>
-              </div>
-              <!-- Paciente -->
-              <div class="card lh-sm text-sm border-secondary m-1" style="width: 7rem;">
-                <div class="card-header p-2 bg-secondary text-light fw-bold">
-                  Juan Fernando
-                </div>
-                <ul class="list-group list-group-flush fw-light">
-                  <li class="list-group-item p-1">Prioridad: 6</li>
-                  <li class="list-group-item p-1">Riesgo: 5.3</li>
-                </ul>
-              </div>
-              <!-- Paciente -->
-              <div class="card lh-sm text-sm border-secondary m-1" style="width: 7rem;">
-                <div class="card-header p-2 bg-secondary text-light fw-bold">
-                  Juan Fernando
-                </div>
-                <ul class="list-group list-group-flush fw-light">
-                  <li class="list-group-item p-1">Prioridad: 6</li>
-                  <li class="list-group-item p-1">Riesgo: 5.3</li>
-                </ul>
-              </div>
-
-
-            </div>
-          </div>
+          <div id="vista_sala_de_pacientes_pendientes" class="col text-center"></div>
 
           <!-- Sala de Espera -->
-          <div class="col text-center">
-            <p class="h6 my-2 text-center">Sala de Espera</p>
-            <div class="col text-center my-3 p-1 border border-2 rounded-2 bg-light d-flex flex-wrap justify-content-evenly">
-
-              <!-- Paciente -->
-              <div class="card lh-sm text-sm border-secondary m-1" style="width: 7rem;">
-                <div class="card-header p-2 bg-secondary text-light fw-bold">
-                  Juan Fernando
-                </div>
-                <ul class="list-group list-group-flush fw-light">
-                  <li class="list-group-item p-1">Prioridad: 6</li>
-                  <li class="list-group-item p-1">Riesgo: 5.3</li>
-                </ul>
-              </div>
-
-            </div>
-          </div>
+          <div id="vista_sala_de_espera" class="col text-center"></div>
 
           <!-- Sala de Atención -->
-          <div class="col text-center">
-            <p class="h6 my-2 text-center">Sala de Atención</p>
-            <div class="col text-center my-3 p-1 border border-2 rounded-2 bg-light d-flex flex-wrap justify-content-evenly">
-
-            </div>
-          </div>
+          <div id="vista_sala_de_atencion" class="col text-center"></div>
 
         </div>
 
@@ -164,30 +77,20 @@
       </div>
 
       <!-- Seccion de funciones-->
-      <div class="col-2">
-        <p class="h6 my-2 text-center">Funciones</p>
-        <div class="container-fluid p-2 mb-3 border bg-lightblue rounded-2 text-light">
-          <input id="historia_clinica" class="form-control my-1" type="number" placeholder="# de historia clínica">
-          <button id="pacientes_de_mayor_riesgo" class="btn btn-dark m-1" type="button">Pacientes de mayor riesgo</button>
-          <button id="pacientes_fumadores_urgentes" class="btn btn-dark m-1" type="button">Pacientes fumadores urgentes</button>
-          <button id="consulta_mas_frecuentada" class="btn btn-dark m-1" type="button">Consulta más frecuentada</button>
-          <button id="paciente_mas_anciano" class="btn btn-dark m-1" type="button">Paciente más anciano</button>
-        </div>
-
-        <!-- Monitor -->
-        <p class="h6 my-2 text-center">Monitor</p>
-        <div class="container-fluid p-2 mb-3 border bg-lightblue rounded-2 text-light">
-          <!-- <p class="h6 my-2 text-center"> -->
-          <div id="monitor" class="bg-light text-dark p-2">
-
-          </div>
-        </div>
-      </div>
-
+      <div id="vista_funciones" class="col-2 align-items-evenly"></div>
 
     </div>
   </div>
-  </div>
+  <!-- importa plantillas -->
+  <script src="./plantillas/plantilla_header.js"></script>
+  <script src="./plantillas/plantilla_registro_pacientes.js"></script>
+  <script src="./plantillas/plantilla_registro_consultas.js"></script>
+  <script src="./plantillas/plantilla_control_de_atencion.js"></script>
+  <script src="./plantillas/plantilla_sala_de_pacientes_pendientes.js"></script>
+  <script src="./plantillas/plantilla_sala_de_espera.js"></script>
+  <script src="./plantillas/plantilla_sala_de_atencion.js"></script>
+  <script src="./plantillas/plantilla_funciones.js"></script>
+  <script src="./plantillas/plantilla_paciente.js"></script>
   <!-- Importa diccionarios -->
   <script src="./diccionarios/paciente.js"></script>
   <script src="./diccionarios/consulta.js"></script>
@@ -196,11 +99,11 @@
   <script src="./clases/Paciente.js"></script>
   <script src="./clases/Consulta.js"></script>
   <script src="./clases/Clinica.js"></script>
-  <!-- Importa controlador -->
-  <script src="./controladores/controlador.js" ></script>
-  <!-- Importa tests -->
-  <script src="./tests.js"></script>
-  
+  <script src="./clases/Monitor.js"></script>
+  <!-- Importa controladores -->
+  <script src="./controladores/render.js"></script>
+  <script src="./controladores/controlador.js"></script>
+
 </body>
 
 </html>
