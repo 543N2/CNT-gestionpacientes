@@ -110,7 +110,7 @@ class Paciente {
 
   establecerPrioridadJoven(esFumador, annosFuma) {
     let criterio1 = esFumador && annosFuma > 0
-    let criterio2 = !esFumador && annosFuma === 0
+    let criterio2 = !esFumador || annosFuma === 0
     if (criterio1) {
       this.esFumador = true
       this.annosFuma = annosFuma
